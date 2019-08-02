@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View, TextInput } from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -18,11 +18,22 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+  state = { placeName: '' }
+
+  placeNameChangedHandler = val => {
+    this.setState({
+      placeName: val
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>First app built with React Native CLI!</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={this.placeNameChangedHandler}
+          value={this.state.placeName} />
       </View>
     );
   }
@@ -40,9 +51,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  textInput: {
+    width: 300,
+    height: 36,
+    borderColor: 'black',
+    borderWidth: 1
   },
 });

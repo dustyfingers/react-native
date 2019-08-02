@@ -5,6 +5,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Second react native app! Wow!!</Text>
+      <Text>WOW! I just changed this react app!</Text>
     </View>
   );
 }

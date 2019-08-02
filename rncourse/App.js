@@ -1,24 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TextInput } from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press CTRL+M for dev menu',
-});
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 type Props = {};
 export default class App extends Component<Props> {
-  state = { placeName: '' }
+  state = {
+    placeName: '',
+    places: []
+  }
 
   placeNameChangedHandler = val => {
     this.setState({
@@ -26,14 +14,35 @@ export default class App extends Component<Props> {
     });
   }
 
+  placeSubmitHandler = () => {
+    if (this.state.placeName.trim() === "") return;
+    this.setState(prevState => {
+      return {
+        places: prevState.places.concat(prevState.placeName),
+        placeName: ''
+      };
+    })
+  }
+
   render() {
+    const placesOutput = this.state.places.map((place, i) => (
+      <Text key={i}>{place}</Text>
+    ));
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>First app built with React Native CLI!</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={this.placeNameChangedHandler}
-          value={this.state.placeName} />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.placeInput}
+            placeholder="Add an awesome place!"
+            onChangeText={this.placeNameChangedHandler}
+            value={this.state.placeName} />
+          <Button
+            title="Add"
+            style={styles.placeButton} onPress={this.placeSubmitHandler} />
+        </View>
+        <View>
+          {placesOutput}
+        </View>
       </View>
     );
   }
@@ -42,19 +51,21 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    padding: 26,
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  inputContainer: {
+    width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
-  textInput: {
-    width: 300,
-    height: 36,
-    borderColor: 'black',
-    borderWidth: 1
+  placeInput: {
+    width: "70%"
   },
+  placeButton: {
+    width: "30%"
+  }
 });

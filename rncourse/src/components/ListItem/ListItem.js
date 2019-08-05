@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
 
-const ListItem = ({ text }) => (
-    <View style={styles.listItem}>
-        <Text>{text}</Text>
-    </View>
+const ListItem = ({ text, onItemPressed }) => (
+    <TouchableNativeFeedback onLongPress={onItemPressed}>
+        <View style={styles.listItem}>
+            <Text>{text}</Text>
+        </View>
+    </TouchableNativeFeedback>
 );
 
 const styles = StyleSheet.create({

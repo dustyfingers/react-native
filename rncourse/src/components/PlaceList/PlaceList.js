@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import ListItem from '../ListItem/ListItem';
 
 const PlaceList = ({ places }) => {
     const placesOutput = places.map((place, i) => (
-        <ListItem key={i} text={place} />
+        <ListItem
+            key={i}
+            text={place}
+            onItemPressed={() => alert('Item pressed - ID: ' + i)} />
     ));
 
     return (
